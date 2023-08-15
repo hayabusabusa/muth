@@ -8,7 +8,7 @@
 import Foundation
 
 /// スケール内の度数を表す Enum.
-public enum ScaleDegree: Int, Equatable, CaseIterable {
+public enum ScaleDegree: Int, Equatable, CaseShiftCyclable {
     /// 1 度.
     case i
     /// 2 度.

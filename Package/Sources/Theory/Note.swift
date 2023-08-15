@@ -8,7 +8,7 @@
 import Foundation
 
 /// 音を表す Enum.
-public enum Note: Int, Equatable, CaseIterable {
+public enum Note: Int, Equatable, CaseShiftCyclable {
     /// `C` の音.
     case C
     /// `C#` の音.
@@ -61,16 +61,6 @@ public enum Note: Int, Equatable, CaseIterable {
         case .B:
             return "B"
         }
-    }
-
-    /// 任意の間隔分音をずらしたものを返す.
-    /// - Parameter interval: ずらす間隔.
-    /// - Returns: ずらした後の音.
-    public func shift(_ interval: Int) -> Note {
-        let rawSum = rawValue + interval
-        let allCasesCount = Self.allCases.count
-        let value = rawSum < 0 ? (allCasesCount - abs(rawSum % allCasesCount)) : rawSum % allCasesCount
-        return Note(rawValue: value)!
     }
 
     /// 音と音の間隔を返す.
