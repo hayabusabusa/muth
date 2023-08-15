@@ -8,7 +8,7 @@
 import Foundation
 
 /// 音を表す Enum.
-enum Note: Int, Equatable, CaseIterable {
+public enum Note: Int, Equatable, CaseIterable {
     /// `C` の音.
     case C
     /// `C#` の音.
@@ -34,7 +34,7 @@ enum Note: Int, Equatable, CaseIterable {
     /// `B` の音.
     case B
 
-    var name: String {
+    public var name: String {
         switch self {
         case .C:
             return "C"
@@ -66,7 +66,7 @@ enum Note: Int, Equatable, CaseIterable {
     /// 任意の間隔分音をずらしたものを返す.
     /// - Parameter interval: ずらす間隔.
     /// - Returns: ずらした後の音.
-    func shift(_ interval: Int) -> Note {
+    public func shift(_ interval: Int) -> Note {
         let rawSum = rawValue + interval
         let allCasesCount = Self.allCases.count
         let value = rawSum < 0 ? (allCasesCount - abs(rawSum % allCasesCount)) : rawSum % allCasesCount
@@ -76,7 +76,7 @@ enum Note: Int, Equatable, CaseIterable {
     /// 音と音の間隔を返す.
     /// - Parameter note: 計測対象の音.
     /// - Returns: 間隔.
-    func distance(to note: Note) -> Int {
+    public func distance(to note: Note) -> Int {
         let allCasesCount = Self.allCases.count
         let up = note.rawValue - rawValue
         let absUp = up < 0 ? allCasesCount + up : up
@@ -88,7 +88,7 @@ enum Note: Int, Equatable, CaseIterable {
 }
 
 extension Note: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         name
     }
 }
