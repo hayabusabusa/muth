@@ -17,11 +17,15 @@ let package = Package(
     targets: [
         .target(
             name: "AppFeature",
-            dependencies: [],
+            dependencies: [
+                "PuzzleFeature",
+            ],
             path: "./Sources/Features/AppFeature"),
         .target(
             name: "PuzzleFeature",
-            dependencies: [],
+            dependencies: [
+                "Theory",
+            ],
             path: "./Sources/Features/PuzzleFeature"),
         .target(
             name: "Theory",
