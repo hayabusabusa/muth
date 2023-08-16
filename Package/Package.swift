@@ -7,11 +7,22 @@ let package = Package(
     name: "Package",
     products: [
         .library(
+            name: "AppFeature",
+            targets: ["AppFeature"]),
+        .library(
             name: "Theory",
             targets: ["Theory"])
     ],
     dependencies: [],
     targets: [
+        .target(
+            name: "AppFeature",
+            dependencies: [],
+            path: "./Sources/Features/AppFeature"),
+        .target(
+            name: "PuzzleFeature",
+            dependencies: [],
+            path: "./Sources/Features/PuzzleFeature"),
         .target(
             name: "Theory",
             dependencies: []),
