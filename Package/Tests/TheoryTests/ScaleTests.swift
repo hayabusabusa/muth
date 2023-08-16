@@ -85,8 +85,23 @@ final class ScaleTests: XCTestCase {
             XCTAssertEqual(aNaturalMinorScale.notes, expected)
         }
 
+        XCTContext.runActivity(named: "A ナチュラルマイナースケールのダイアトニックコードを正しく返すこと") { _ in
+            let aNaturalMinorScale = NaturalMinorScale(root: .A)
+            let diatonicChords = aNaturalMinorScale.diatonicTriadChords.reduce(into: [ScaleDegree: AnyChord]()) { $0[$1.key] = AnyChord(from: $1.value) }
+            let expected: [ScaleDegree: AnyChord] = [
+                .i: AnyChord(from: MinorChord(root: .A, third: .C, fifth: .E)),
+                .ii: AnyChord(from: MinorFlatFifthChord(root: .B, third: .D, fifth: .F)),
+                .iii: AnyChord(from: MajorChord(root: .C, third: .E, fifth: .G)),
+                .iv: AnyChord(from: MinorChord(root: .D, third: .F, fifth: .A)),
+                .v: AnyChord(from: MinorChord(root: .E, third: .G, fifth: .B)),
+                .vi: AnyChord(from: MajorChord(root: .F, third: .A, fifth: .C)),
+                .vii: AnyChord(from: MajorChord(root: .G, third: .B, fifth: .D))
+            ]
+            XCTAssertEqual(diatonicChords, expected)
+        }
+
         XCTContext.runActivity(named: "E♭ ナチュラルマイナースケールの構成音が正しいこと") { _ in
-            let aNaturalMinorScale = NaturalMinorScale(root: .EFlat)
+            let eFlatNaturalMinorScale = NaturalMinorScale(root: .EFlat)
             let expected: [ScaleDegree: Note] = [
                 .i: .EFlat,
                 .ii: .F,
@@ -96,7 +111,22 @@ final class ScaleTests: XCTestCase {
                 .vi: .B,
                 .vii: .CSharp
             ]
-            XCTAssertEqual(aNaturalMinorScale.notes, expected)
+            XCTAssertEqual(eFlatNaturalMinorScale.notes, expected)
+        }
+
+        XCTContext.runActivity(named: "E♭ ナチュラルマイナースケールのダイアトニックコードを正しく返せること") { _ in
+            let eFlatNaturalMinorScale = NaturalMinorScale(root: .EFlat)
+            let diatonicChords = eFlatNaturalMinorScale.diatonicTriadChords.reduce(into: [ScaleDegree: AnyChord]()) { $0[$1.key] = AnyChord(from: $1.value) }
+            let expected: [ScaleDegree: AnyChord] = [
+                .i: AnyChord(from: MinorChord(root: .EFlat, third: .FSharp, fifth: .BFlat)),
+                .ii: AnyChord(from: MinorFlatFifthChord(root: .F, third: .GSharp, fifth: .B)),
+                .iii: AnyChord(from: MajorChord(root: .FSharp, third: .BFlat, fifth: .CSharp)),
+                .iv: AnyChord(from: MinorChord(root: .GSharp, third: .B, fifth: .EFlat)),
+                .v: AnyChord(from: MinorChord(root: .BFlat, third: .CSharp, fifth: .F)),
+                .vi: AnyChord(from: MajorChord(root: .B, third: .EFlat, fifth: .FSharp)),
+                .vii: AnyChord(from: MajorChord(root: .CSharp, third: .F, fifth: .GSharp))
+            ]
+            XCTAssertEqual(diatonicChords, expected)
         }
     }
 }
