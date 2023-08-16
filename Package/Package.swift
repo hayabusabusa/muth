@@ -19,14 +19,19 @@ let package = Package(
             name: "AppFeature",
             dependencies: [
                 "PuzzleFeature",
+                "Shared",
             ],
             path: "./Sources/Features/AppFeature"),
         .target(
             name: "PuzzleFeature",
             dependencies: [
+                "Shared",
                 "Theory",
             ],
             path: "./Sources/Features/PuzzleFeature"),
+        .target(
+            name: "Shared",
+            dependencies: []),
         .target(
             name: "Theory",
             dependencies: []),

@@ -5,10 +5,11 @@
 //  Created by Shunya Yamada on 2023/08/17.
 //
 
+import Shared
 import UIKit
 
 /// アプリ起動時の画面遷移をまとめる Coordinator.
-public final class AppCoordinator {
+public final class AppCoordinator: Coordinator {
     private let window: UIWindow
     private let rootViewController: UIViewController
 
