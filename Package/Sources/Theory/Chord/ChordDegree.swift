@@ -17,4 +17,6 @@ public enum ChordDegree: Equatable, CaseIterable {
     case minorThird
     /// 完全 5 度.
     case perfectFifth
+    /// 減 5 度.
+    case diminishFifth
 }
