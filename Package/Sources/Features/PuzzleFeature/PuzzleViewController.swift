@@ -53,10 +53,18 @@ private extension PuzzleViewController {
     func configureStubDataSource() {
         var snapshot = NSDiffableDataSourceSnapshot<PuzzleSection, PuzzleItem>()
         snapshot.appendSections([.key])
-        snapshot.appendItems([.key], toSection: .key)
+        snapshot.appendItems([.key(PuzzleKeyCell.Configuration(key: "C"))], toSection: .key)
 
         snapshot.appendSections([.chords])
-        snapshot.appendItems([.chords], toSection: .chords)
+        snapshot.appendItems([
+            .chords(PuzzleChordsCell.Configuration(degreeName: "I", chordName: "C")),
+            .chords(PuzzleChordsCell.Configuration(degreeName: "II", chordName: "Dm")),
+            .chords(PuzzleChordsCell.Configuration(degreeName: "III", chordName: "Em")),
+            .chords(PuzzleChordsCell.Configuration(degreeName: "IV", chordName: "F")),
+            .chords(PuzzleChordsCell.Configuration(degreeName: "V", chordName: "G")),
+            .chords(PuzzleChordsCell.Configuration(degreeName: "VI", chordName: "Am")),
+            .chords(PuzzleChordsCell.Configuration(degreeName: "VII", chordName: "Bm-5"))
+        ], toSection: .chords)
 
         dataSource.apply(snapshot)
     }

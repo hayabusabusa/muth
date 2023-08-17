@@ -20,13 +20,17 @@ enum PuzzleSection: DiffableDataSourceSection {
             let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(44), heightDimension: .absolute(24))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 12, trailing: 16)
             return section
         case .chords:
-            let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(40), heightDimension: .absolute(80))
+            let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(64), heightDimension: .absolute(128))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(40), heightDimension: .absolute(80))
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+            let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(64), heightDimension: .absolute(128))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = -1
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)
+            section.orthogonalScrollingBehavior = .continuous
             return section
         }
     }

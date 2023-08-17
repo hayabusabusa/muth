@@ -8,6 +8,10 @@
 import UIKit
 
 final class PuzzleKeyCell: UICollectionViewCell {
+    struct Configuration: Hashable {
+        let key: String
+    }
+
     private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "Key C"
@@ -25,6 +29,10 @@ final class PuzzleKeyCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureSubviews()
+    }
+
+    func configure(with configuration: Configuration) {
+        label.text = "key " + configuration.key
     }
 }
 
