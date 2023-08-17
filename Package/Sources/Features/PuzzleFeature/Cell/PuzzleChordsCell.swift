@@ -46,7 +46,7 @@ final class PuzzleChordsCell: UICollectionViewCell {
 
     private lazy var lineView: UIView = {
         let view = UIView()
-        view.backgroundColor = .label
+        view.backgroundColor = .systemGray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -63,7 +63,8 @@ final class PuzzleChordsCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.borderColor = UIColor.label.cgColor
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.systemGray.cgColor
     }
 
     func configure(with configuration: Configuration) {
@@ -74,8 +75,6 @@ final class PuzzleChordsCell: UICollectionViewCell {
 
 private extension PuzzleChordsCell {
     func configureSubviews() {
-        layer.borderWidth = 2
-        layer.borderColor = UIColor.label.cgColor
         addSubview(labelsStackView)
         addSubview(lineView)
         labelsStackView.addArrangedSubview(degreeLabel)
