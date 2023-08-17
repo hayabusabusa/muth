@@ -9,8 +9,8 @@ import Shared
 import UIKit
 
 enum PuzzleSection: DiffableDataSourceSection {
-    case key
-    case chords
+    case key(Int)
+    case chords(Int)
 
     func layout(with environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         switch self {
@@ -28,8 +28,8 @@ enum PuzzleSection: DiffableDataSourceSection {
             let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(64), heightDimension: .absolute(128))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = -1
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)
+            section.interGroupSpacing = -2
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 24, trailing: 16)
             section.orthogonalScrollingBehavior = .continuous
             return section
         }

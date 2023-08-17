@@ -19,8 +19,6 @@ final class PuzzleChordsCell: UICollectionViewCell {
         stackView.spacing = 0
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
-        stackView.layer.borderWidth = 2
-        stackView.layer.borderColor = UIColor.label.cgColor
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -31,7 +29,7 @@ final class PuzzleChordsCell: UICollectionViewCell {
         label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .label
         label.textAlignment = .center
-        label.backgroundColor = .systemGray.withAlphaComponent(0.2)
+        label.backgroundColor = .systemBlue.withAlphaComponent(0.14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -63,6 +61,11 @@ final class PuzzleChordsCell: UICollectionViewCell {
         configureSubviews()
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.borderColor = UIColor.label.cgColor
+    }
+
     func configure(with configuration: Configuration) {
         degreeLabel.text = configuration.degreeName
         chordLabel.text = configuration.chordName
@@ -71,6 +74,8 @@ final class PuzzleChordsCell: UICollectionViewCell {
 
 private extension PuzzleChordsCell {
     func configureSubviews() {
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.label.cgColor
         addSubview(labelsStackView)
         addSubview(lineView)
         labelsStackView.addArrangedSubview(degreeLabel)

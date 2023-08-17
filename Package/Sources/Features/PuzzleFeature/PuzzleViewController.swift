@@ -6,6 +6,7 @@
 //
 
 import Shared
+import Theory
 import UIKit
 
 final class PuzzleViewController: UIViewController {
@@ -28,6 +29,7 @@ final class PuzzleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSubviews()
+        configureNavigation()
         configureStubDataSource()
     }
 }
@@ -50,23 +52,48 @@ private extension PuzzleViewController {
         }
     }
 
+    func configureNavigation() {
+        navigationItem.title = "ダイアトニックコード"
+    }
+
     func configureStubDataSource() {
         var snapshot = NSDiffableDataSourceSnapshot<PuzzleSection, PuzzleItem>()
-        snapshot.appendSections([.key])
-        snapshot.appendItems([.key(PuzzleKeyCell.Configuration(key: "C"))], toSection: .key)
 
-        snapshot.appendSections([.chords])
-        snapshot.appendItems([
-            .chords(PuzzleChordsCell.Configuration(degreeName: "I", chordName: "C")),
-            .chords(PuzzleChordsCell.Configuration(degreeName: "II", chordName: "Dm")),
-            .chords(PuzzleChordsCell.Configuration(degreeName: "III", chordName: "Em")),
-            .chords(PuzzleChordsCell.Configuration(degreeName: "IV", chordName: "F")),
-            .chords(PuzzleChordsCell.Configuration(degreeName: "V", chordName: "G")),
-            .chords(PuzzleChordsCell.Configuration(degreeName: "VI", chordName: "Am")),
-            .chords(PuzzleChordsCell.Configuration(degreeName: "VII", chordName: "Bm-5"))
-        ], toSection: .chords)
+        Note.allCases.enumerated().forEach { enumerated in
+            let majorScale = MajorScale(root: enumerated.element)
+            let chordsItems = majorScale.diatonicTriadChords
+                .reduce(into: [(key: ScaleDegree, value: Chord)]()) { $0.append((key: $1.key, value: $1.value)) }
+                .sorted(by: { $0.key.rawValue < $1.key.rawValue })
+                .map { PuzzleItem.chords(PuzzleChordsCell.Configuration(degreeName: $0.key.name, chordName: $0.value.name)) }
+
+            snapshot.appendSections([.key(enumerated.offset)])
+            snapshot.appendItems([.key(PuzzleKeyCell.Configuration(key: majorScale.root.name))], toSection: .key(enumerated.offset))
+            snapshot.appendSections([.chords(enumerated.offset)])
+            snapshot.appendItems(chordsItems, toSection: .chords(enumerated.offset))
+        }
 
         dataSource.apply(snapshot)
+    }
+}
+
+extension ScaleDegree {
+    var name: String {
+        switch self {
+        case .i:
+            return "I"
+        case .ii:
+            return "II"
+        case .iii:
+            return "III"
+        case .iv:
+            return "IV"
+        case .v:
+            return "V"
+        case .vi:
+            return "VI"
+        case .vii:
+            return "VII"
+        }
     }
 }
 
@@ -78,6 +105,7 @@ struct PuzzleViewController_Preview: PreviewProvider {
         Preview(
             content: Wrapped<PuzzleViewController>()
         )
+        .ignoresSafeArea(edges: .bottom)
     }
 }
 #endif
