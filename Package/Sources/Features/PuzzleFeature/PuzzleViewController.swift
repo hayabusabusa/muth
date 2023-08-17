@@ -5,6 +5,7 @@
 //  Created by Shunya Yamada on 2023/08/17.
 //
 
+import Shared
 import UIKit
 
 final class PuzzleViewController: UIViewController {
@@ -27,6 +28,7 @@ final class PuzzleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSubviews()
+        configureStubDataSource()
     }
 }
 
@@ -47,4 +49,27 @@ private extension PuzzleViewController {
             self?.dataSource.snapshot().sectionIdentifiers[section].layout(with: environment)
         }
     }
+
+    func configureStubDataSource() {
+        var snapshot = NSDiffableDataSourceSnapshot<PuzzleSection, PuzzleItem>()
+        snapshot.appendSections([.key])
+        snapshot.appendItems([.key], toSection: .key)
+
+        snapshot.appendSections([.chords])
+        snapshot.appendItems([.chords], toSection: .chords)
+
+        dataSource.apply(snapshot)
+    }
 }
+
+#if DEBUG
+import SwiftUI
+
+struct PuzzleViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        Preview(
+            content: Wrapped<PuzzleViewController>()
+        )
+    }
+}
+#endif

@@ -22,6 +22,7 @@ final class PuzzleChordsCell: UICollectionViewCell {
         label.text = "I"
         label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .label
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -31,6 +32,7 @@ final class PuzzleChordsCell: UICollectionViewCell {
         label.text = "C"
         label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .label
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -49,6 +51,8 @@ final class PuzzleChordsCell: UICollectionViewCell {
 private extension PuzzleChordsCell {
     func configureSubviews() {
         addSubview(labelsStackView)
+        labelsStackView.addArrangedSubview(degreeLabel)
+        labelsStackView.addArrangedSubview(chordLabel)
         NSLayoutConstraint.activate([
             labelsStackView.topAnchor.constraint(equalTo: topAnchor),
             labelsStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
